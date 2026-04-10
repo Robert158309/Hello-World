@@ -1,5 +1,6 @@
 /*Importación de Librerias*/
 #include <iostream>
+#include <ctime>
 
 /*Importación de Archivos*/
 #include "Utils.h" // Archivo de utilidades
@@ -18,6 +19,8 @@ void hola_mundo() {
 
 /*Funcion Principal*/
 int main() {
+
+    srand(time(0));
 
     int opcion;
     Libreria libreria;

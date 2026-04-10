@@ -1,6 +1,8 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <fstream>
+#include <sstream>
 
 #include "Utils.h" // Archivo de utilidades
 #include "Parqueo.h" // Archivo del sistema de parqueo
@@ -22,6 +24,8 @@ std::vector<Auto> autos;
 
 /*Funciones del Sistema de Parqueo*/
 void sistema_parqueo() {
+
+    cargarAutos();
 
     int opcion;
 
@@ -84,9 +88,12 @@ void parqueo() {
 
     autos.push_back(a); // Guardamos el auto en el vector
 
-    std::cout << "Su vehiculo " << a.marca << " " << a.modelo << " ha sido registrado en el sistema de parqueo.\n";
-    std::cout << "Su ticket es: " << a.ticket << "\n";
-    std::cout << "Gracias por usar el sistema de parqueo\n";
+    std::ofstream archivo("../data/parqueo.txt", std::ios::app);
+
+    if (archivo.is_open()) {
+        archivo << a.marca << "," << a.modelo << "," << a.ticket << "\n";
+        archivo.close();
+    }
 
 }
 
@@ -96,4 +103,36 @@ void mostrarAutos() {
     for (const Auto& a : autos) {
         std::cout << "Marca: " << a.marca << ", Modelo: " << a.modelo << ", Ticket: " << a.ticket << "\n";
     }
+}
+
+void cargarAutos() {
+
+    autos.clear();
+
+    std::ifstream archivo("../data/parqueo.txt");
+
+    if (!archivo.is_open()) {
+        return; // Si no existe el archivo, no hace nada
+    }
+
+    std::string linea;
+
+    while (getline(archivo, linea)) {
+
+        std::stringstream ss(linea);
+        std::string dato;
+
+        Auto a;
+
+        // Leer CSV
+        getline(ss, a.marca, ',');
+        getline(ss, a.modelo, ',');
+        getline(ss, dato, ',');
+
+        a.ticket = std::stoi(dato);
+
+        autos.push_back(a);
+    }
+
+    archivo.close();
 }
