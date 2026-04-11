@@ -101,7 +101,11 @@ void parqueo() {
 void mostrarAutos() {
     std::cout << "--- Autos Registrados ---\n";
     for (const Auto& a : autos) {
-        std::cout << "Marca: " << a.marca << ", Modelo: " << a.modelo << ", Ticket: " << a.ticket << "\n";
+        std::cout << "-------------------------\n";
+        std::cout << "Ticket: " << a.ticket << "\n";
+        std::cout << "Marca: " << a.marca << "\n";
+        std::cout << "Modelo: " << a.modelo << "\n";
+        std::cout << "-------------------------\n";
     }
 }
 

@@ -3,7 +3,7 @@
 #include <iostream>
 #include <string>
 
-class cliente {
+class Cliente {
 
 private:
 
@@ -14,9 +14,13 @@ private:
 public:
 
 
-    cliente();  // Constructor por defecto
+    Cliente();  // Constructor por defecto
 
     void pedirDatos();
     void mostrarDatos()const;
+    std::string getNombre() const;
+    std::string getApellido() const;
+    int getId() const;
+    Cliente(std::string nombre, std::string apellido, int id_cliente);
 
 };
